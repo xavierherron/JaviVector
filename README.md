@@ -36,3 +36,4 @@ On my free time I love to read, research and share ideas via my blog, @aRealWavy
 Before I knew I was going to have to design a game for Python programming, I was rendering images of the 
 ocean and scenes from my dreams. When I got the message about the final project, I thought of a few ideas
 that I could elaborate on, but I thought Xavi vector was perfect for the ocean: art & discovery motif with my domain @aRealWavyTour
+<img width="1408" height="768" alt="IMG_1412" src="https://github.com/user-attachments/assets/150cbf70-44b2-4260-bb86-b05800ef8c6e" />
