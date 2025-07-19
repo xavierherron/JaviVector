@@ -1,0 +1,197 @@
+import pygame #import pygame
+import random # imporat to use the random functions
+# import statements to work with sql databases and booleans to use True/ False
+from sqlalchemy import false
+
+pygame.init() #initilize pygame
+
+def main(): #define main module
+
+    screen = pygame.display.set_mode((1333, 802)) #initiate screen size width * height
+
+    pygame.display.set_caption("Javi Vector") # display name
+    icon = pygame.image.load('javi.png')  # change display icon
+    pygame.display.set_icon(icon)  # set display icon
+    OceanBackGround = pygame.image.load('OceanBackground.png')  # load background Image
+
+    # variables for Javi's x and y position'
+    javiX = 300
+    javiY = 30
+
+    # create variable to change object positions
+    WhaleSharkX = 600
+    WhaleSharkY = 400
+    submarineX = 2
+    submarineY = 525
+    EagleRayX = 500
+    EagleRayY = 100
+    EagleRay2X = 515
+    EagleRay2Y = 110
+    EagleRay3X = 550
+    EagleRay3Y = 85
+    EagleRay4X = 570
+    EagleRay4Y = 120
+    EagleRay5X = 528
+    EagleRay5Y = 130
+    BlueSharkX = 310
+    BlueSharkY = 80
+    seaHorseX = 60
+    seaHorseY = 740
+    speed = .5
+    # list to iterate through randomly to change character position adjustment at random
+    positions = [.002,.001,.015,.05,.05,.002,-.0002,-.015,-.005,-.05,-.001,-.004,-.0055]
+
+
+    # create class for Eagle Ray
+    class Ray:
+        def __init__(self, EagleRayX, EagleRayY):
+            self.EagleRayX = EagleRayX
+            self.EagleRayY = EagleRayY
+
+        # define Eagle Ray function and make transformations
+        def EagleRay(self, EagleRayX, EagleRayY):
+            if EagleRayX < EagleRayX:
+                movePlayer = pygame.image.load('AquilaAzulLeft4.png')
+                # scale Eagle Ray Image
+                playerScaled = pygame.transform.scale(movePlayer, (45, 45))
+                # place eagle ray object to these given coordinates
+                screen.blit(playerScaled, (EagleRayX, EagleRayY))
+            else:
+                movePlayer = pygame.image.load('AquilaAzulRight4.png')
+                # scale Eagle Ray Image
+                playerScaled = pygame.transform.scale(movePlayer, (45, 45))
+                # place eagle ray object to these given coordinates
+                screen.blit(playerScaled, (EagleRayX, EagleRayY))
+
+    # define blue shark function and make transformations
+    def BlueShark(BlueSharkX, BlueSharkY):
+        if BlueSharkX < BlueSharkX:
+            # laod image
+            movePlayer = pygame.image.load('BlueSharkLeft.png')
+            # scale image size
+            playerScaled = pygame.transform.scale(movePlayer, (140, 67))
+            screen.blit(playerScaled, (BlueSharkX, BlueSharkY))
+
+        else:
+            movePlayer = pygame.image.load('BlueSharkRight.png')
+            playerScaled = pygame.transform.scale(movePlayer, (130, 67))
+            screen.blit(playerScaled, (BlueSharkX, BlueSharkY))
+
+    # define submarine function and make transformations
+    def submarine(submarineX,submarineY):
+        # load character image
+        submarine = pygame.image.load('submarine.png')
+        subScaled = pygame.transform.scale(submarine, (230, 200))
+        screen.blit(subScaled,(submarineX,submarineY))
+    # define sea horse function and make transformations
+    def seaHorse(seaHorseX, seaHorseY):
+        # load character image
+            seaHorseLeft = ['seaHorseLeft.png']
+            seaHorseRight = ['seaHorseRight.png']
+            if seaHorseX <= seaHorseX:
+                move = random.choice(seaHorseLeft)
+                movePlayer = pygame.image.load(move)
+                #scale sea horse
+                playerScaled = pygame.transform.scale(movePlayer, (25, 25))
+                screen.blit(playerScaled, (seaHorseX, seaHorseY))
+            else:
+                move = random.choice(seaHorseRight)
+                movePlayer = pygame.image.load(move)
+                # scale sea horse image
+                playerScaled = pygame.transform.scale(movePlayer, (25, 25))
+                screen.blit(playerScaled, (seaHorseX, seaHorseY))
+    # function definition to load whale shark image and make transformations
+    def WhaleShark(WhaleSharkX, WhaleSharkY):
+        #load images
+        WhaleSharkLeft = ['WhaleSharkLeft.png']
+        WhaleSharkRight = ['WhaleSharkRight.png']
+        # move whale
+        if WhaleSharkX <= WhaleSharkX:
+            move = random.choice(WhaleSharkLeft)
+            movePlayer = pygame.image.load(move)
+            # scale character image
+            playerScaled = pygame.transform.scale(movePlayer, (333, 122))
+            screen.blit(playerScaled, (WhaleSharkX, WhaleSharkY))
+        else:
+            move = random.choice(WhaleSharkRight)
+            movePlayer = pygame.image.load(move)
+            #scale character image
+            playerScaled = pygame.transform.scale(movePlayer, (333, 122))
+            screen.blit(playerScaled, (WhaleSharkX, WhaleSharkY))
+    # function definition to load javi image
+    def moveJavi(keys,javiX,javiY,speed):
+        JaviPlayer = pygame.image.load('JaviPlayerDown.png')
+        # scale Javi image to 70 x 70
+        JaviScaled = pygame.transform.scale(JaviPlayer, (70, 70))  # scale javi image
+        # place javi on the screen and given coordinates
+        screen.blit(JaviScaled, (javiX, javiY))
+        # change javis position based on user input
+        if keys[pygame.K_LEFT]:
+            javiX -= speed
+        if keys[pygame.K_RIGHT]:
+            javiX += speed
+        if keys[pygame.K_UP]:
+            javiY -= speed
+        if keys[pygame.K_DOWN]:
+            javiY += speed
+        return javiX, javiY
+
+    running = True  # sentinel
+
+    # infinite loop to keep game running
+    while running:
+
+        screen.blit(OceanBackGround, (0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+             # call javi player function
+
+        keys = pygame.key.get_pressed()
+
+        # call "Ray" character class and change character positions
+        Ray1 = Ray(EagleRayX,EagleRayY)
+        Ray1.EagleRay(EagleRayX, EagleRayY)
+        EagleRayX += random.choice(positions)* random.randint(0,12)
+        EagleRayY += random.choice(positions)* random.randint(0,12)
+        Ray2 = Ray(EagleRay2X,EagleRay2Y)
+        Ray2.EagleRay(EagleRay2X, EagleRay2Y)
+        EagleRay2X += random.choice(positions)* random.randint(0,10)
+        EagleRay2Y += random.choice(positions)* random.randint(0,10)
+        Ray3 = Ray(EagleRay3X,EagleRay3Y)
+        Ray3.EagleRay(EagleRay3X, EagleRay3Y)
+        EagleRay3X += random.choice(positions)* random.randint(0,12)
+        EagleRay3Y += random.choice(positions)* random.randint(0,13)
+        Ray4 = Ray(EagleRay4X, EagleRay4Y)
+        Ray4.EagleRay(EagleRay4X, EagleRay4Y)
+        EagleRay4X += random.choice(positions)* random.randint(0,12)
+        EagleRay4Y += random.choice(positions)* random.randint(0,13)
+        Ray5 = Ray(EagleRay5X, EagleRay5Y)
+        Ray5.EagleRay(EagleRay5X, EagleRay5Y)
+        EagleRay5X += random.choice(positions)* random.randint(0,12)
+        EagleRay5Y += random.choice(positions)* random.randint(0,12)
+        # call "BlueShark" character function and change character position
+        BlueShark(BlueSharkX,BlueSharkY)
+        BlueSharkY += random.choice(positions)* random.randint(0,10)
+        BlueSharkX += random.choice(positions)* random.randint(0,10)
+        BlueSharkX += .6
+        # call "SeaHorse" character function and change character
+        seaHorse(seaHorseX,seaHorseY)
+        # call "WhaleShark" character function and change character positions
+        WhaleShark(WhaleSharkX, WhaleSharkY)
+        WhaleSharkX -= .27
+        # call "Submarine" character function and change character positions
+        submarine(submarineX,submarineY)
+        submarineX += .22
+        # call "Javi" character function and change Javis positions
+        javiX, javiY = moveJavi(keys,javiX,javiY,speed)
+
+
+
+        pygame.display.update()
+
+
+
+
+if __name__ == '__main__':
+    main()  # call main module
